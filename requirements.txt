@@ -1,0 +1,4 @@
+names==0.3.0
+pytest==7.4.3
+selenium==4.15.2
+
