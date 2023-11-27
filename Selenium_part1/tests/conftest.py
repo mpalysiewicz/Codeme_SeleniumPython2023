@@ -5,7 +5,9 @@ from random import choice
 
 import names
 import pytest
+import selenium
 from selenium import webdriver
+
 
 
 from Selenium_part1.pages.my_account_page import Constants
@@ -20,7 +22,15 @@ class User:
 
 @pytest.fixture
 def web_driver(config) -> webdriver:
-    if config["BROWSER"] == 'Chrome':
+    if config["BROWSER"] == 'Chrome-headless':
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_argument("--headless=new")
+        driver = webdriver.Chrome(options=chrome_options)
+    elif config["BROWSER"] == 'Firefox-headless':
+        firefox_options = webdriver.FirefoxOptions()
+        firefox_options.add_argument("--headless=new")
+        driver = webdriver.Firefox(options=firefox_options)
+    elif config["BROWSER"] == 'Chrome':
         driver = webdriver.Chrome()
     elif config["BROWSER"] == 'Firefox':
         driver = webdriver.Firefox()
