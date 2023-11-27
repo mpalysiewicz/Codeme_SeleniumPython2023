@@ -20,7 +20,12 @@ class User:
 
 @pytest.fixture
 def web_driver(config) -> webdriver:
-    driver = webdriver.Chrome()
+    if config["BROWSER"] == 'Chrome':
+        driver = webdriver.Chrome()
+    elif config["BROWSER"] == 'Firefox':
+        driver = webdriver.Firefox()
+    else:
+        raise Exception(f'"{config["Browser"]} is not a supported browser')
     driver.get(config["URL"])
     driver.maximize_window()
     driver.implicitly_wait(10)
